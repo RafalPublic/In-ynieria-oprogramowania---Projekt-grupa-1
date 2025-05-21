@@ -1,0 +1,292 @@
+/* Reset i podstawowe style */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #1E1E1E;
+    color: white;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Nagłówek */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px;
+    background: #1E1E1E;
+    border-bottom: 1px solid #444444;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.logo {
+    width: 23.33px;
+    height: 35px;
+    outline: 3.5px white solid;
+    outline-offset: -1.75px;
+}
+
+.nav-links {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.nav-item {
+    padding: 8px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-text {
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+.auth-buttons {
+    width: 178px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.login-button, .register-button {
+    flex: 1;
+    padding: 8px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    line-height: 16px;
+    cursor: pointer;
+}
+
+.login-button {
+    background: #303030;
+    outline: 1px solid #949494;
+    color: white;
+}
+
+.register-button {
+    background: #F5F5F5;
+    outline: 1px solid #F5F5F5;
+    color: #1E1E1E;
+}
+
+/* Sekcja hero */
+.hero-section {
+    width: 100%;
+    padding: 160px 24px;
+    background: #2C2C2C;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.hero-content h1 {
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 86.4px;
+    text-align: center;
+}
+
+.hero-content p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 32px;
+    line-height: 38.4px;
+    text-align: center;
+}
+
+/* Zdjęcie hotelu */
+.hotel-image {
+    width: 100%;
+    background: #E3E3E3;
+    outline: 1px black solid;
+}
+
+.hotel-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Sekcja kadry */
+.staff-section {
+    width: 100%;
+    padding: 64px;
+    background: #1E1E1E;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.staff-section h2 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 28.8px;
+}
+
+.staff-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px;
+}
+
+.staff-card {
+    flex: 1;
+    min-width: 300px;
+    padding: 24px;
+    background: #1E1E1E;
+    border-radius: 8px;
+    outline: 1px solid #444444;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.staff-card h3 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 28.8px;
+}
+
+.staff-info {
+    width: 139px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.staff-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.staff-info span {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22.4px;
+}
+
+/* Stopka */
+.footer {
+    width: 100%;
+    padding: 32px;
+    background: #1E1E1E;
+    border-top: 1px solid #444444;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.footer-column {
+    width: 262px;
+    min-width: 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-logo {
+    width: 23.33px;
+    height: 35px;
+    outline: 3.5px white solid;
+    outline-offset: -1.75px;
+    margin-bottom: 24px;
+}
+
+.social-icons {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.social-icon {
+    width: 24px;
+    height: 24px;
+    background: white;
+}
+
+.footer-column h4 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22.4px;
+    padding-bottom: 16px;
+}
+
+.footer-column a {
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22.4px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .nav-links {
+        justify-content: center;
+    }
+    
+    .hero-content h1 {
+        font-size: 48px;
+        line-height: 1.2;
+    }
+    
+    .hero-content p {
+        font-size: 24px;
+    }
+    
+    .staff-grid {
+        justify-content: center;
+    }
+    
+    .footer-column {
+        width: 100%;
+        text-align: center;
+        align-items: center;
+    }
+    
+    .social-icons {
+        justify-content: center;
+    }
+}
