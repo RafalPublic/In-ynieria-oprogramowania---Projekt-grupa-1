@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hotel Atlantica - Zamówienia</title>
+<link rel="stylesheet" href="styles_zamowienia-restauracje.css" />
+</head>
+<body>
+<header>
+<div class="logo">🅱 Hotel Atlantica</div>
+<button class="logout">Wyloguj się</button>
+</header>
+ 
+  <main>
+<aside class="sidebar">
+<a href="rezerwacje.html"><button class="btn">Twoje Rezerwacje</button></a>
+<button class="btn active">Zamówienia z restauracji</button>
+<a href="pokoje.html"><button class="btn">Zarezerwuj</button></a>
+ 
+      <div class="filters">
+<h3>Kluczowe słowa</h3>
+<div class="tags">
+<span>Kurczak ✕</span>
+<span>Frytki ✕</span>
+<span>Fit ✕</span>
+</div>
+ 
+        <label for="price">Cena</label>
+<input type="range" id="price" min="10" max="100" value="100" />
+ 
+        <h4>Rodzaj dania</h4>
+<label><input type="checkbox" checked /> Śniadania</label>
+<label><input type="checkbox" checked /> Obiad!</label>
+<label><input type="checkbox" checked /> Kolacja</label>
+ 
+        <h4>Wielkość</h4>
+<label><input type="checkbox" checked /> Małe</label>
+<label><input type="checkbox" checked /> Średnie</label>
+<label><input type="checkbox" checked /> Grubas edition</label>
+        <a href="koszyk.html"><button class="order-button">Zamówienie</button></a>
+</div>
+</aside>
+ 
+    <section class="content">
+<div class="top-bar">
+<input type="text" placeholder="Szukaj" class="search" />
+<div class="filters-inline">
+<button class="sort active">✔ Nowe</button>
+<button class="sort">Cena rosnąco</button>
+<button class="sort">Cena malejąco</button>
+<button class="sort">Oceny</button>
+</div>
+</div>
+ 
+      <div class="cards">
+<div class="card">
+<img src="https://via.placeholder.com/200x150" alt="Sałatka" />
+<h4>Sałatka :)</h4>
+<p class="price">145zł</p>
+<button class="add">+</button>
+</div>
+ 
+        <div class="card">
+<img src="https://via.placeholder.com/200x150" alt="Pieczona Mewa" />
+<h4>Pieczona Mewa</h4>
+<p class="price">26zł</p>
+<button class="add">+</button>
+</div>
+ 
+        <div class="card">
+<img src="https://via.placeholder.com/200x150" alt="Frytki Polskie" />
+<h4>Frytki Polskie</h4>
+<p class="price">14zł</p>
+<button class="add">+</button>
+</div>
+ 
+        <div class="card">
+<img src="https://via.placeholder.com/200x150" alt="Kebab u turasa" />
+<h4>Kebab u turasa</h4>
+<p class="price">34zł</p>
+<button class="add">+</button>
+</div>
+ 
+        <div class="card">
+<img src="https://via.placeholder.com/200x150" alt="Burgier" />
+<h4>Burgier</h4>
+<p class="price">43zł</p>
+<button class="add">+</button>
+</div>
+ 
+        <div class="card">
+<img src="https://via.placeholder.com/200x150" alt="Siepa" />
+<h4>Siepa</h4>
+<p class="price">13zł</p>
+<button class="add">+</button>
+</div>
+</div>
+</section>
+</main>
+ 
+  <footer>
+</footer>
+</body>
+</html>

@@ -1,0 +1,144 @@
+/* Reset i ogólne */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+ 
+body {
+  background-color: #e0e0e0;
+}
+ 
+/* Header */
+.header {
+  background-color: #fff;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  border-bottom: 1px solid #ccc;
+}
+ 
+.logo {
+  display: flex;
+  align-items: center;
+}
+ 
+.icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+ 
+.title {
+  font-weight: bold;
+  font-size: 18px;
+}
+ 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+ 
+.notification-dot {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+}
+ 
+.logout-button {
+  background-color: #222;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+ 
+/* Main Layout */
+.main {
+  display: flex;
+}
+ 
+/* Sidebar */
+.sidebar {
+  background-color: #f3f3f3;
+  width: 160px;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-right: 1px solid #ccc;
+}
+ 
+.menu-button {
+  padding: 10px;
+  border: none;
+  background-color: #222;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+ 
+.menu-button.active {
+  background-color: #8c5c5c;
+}
+ 
+/* Content */
+.content {
+  flex: 1;
+  padding: 20px;
+  background-color: #d6d6d6;
+}
+ 
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+ 
+.search-input {
+  padding: 8px;
+  width: 200px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+ 
+.search-button {
+  padding: 8px 10px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+ 
+.filter-button {
+  padding: 8px 12px;
+  background-color: #ddd;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+ 
+.filter-button.active {
+  background-color: #222;
+  color: white;
+}
+ 
+.menu-toggle {
+  margin-left: auto;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+ 
+/* Placeholder for order list */
+.orders {
+  min-height: 300px;
+  background-color: #e0e0e0;
+}

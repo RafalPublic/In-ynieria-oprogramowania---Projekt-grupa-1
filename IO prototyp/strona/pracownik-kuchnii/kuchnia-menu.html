@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hotel Atlantica - Menu</title>
+<link rel="stylesheet" href="styles_kuchnia-menu.css" />
+</head>
+<body>
+<header class="header">
+<div class="logo">
+<span class="icon">🏨</span>
+<span class="title">Hotel Atlantica</span>
+</div>
+<div class="header-actions">
+<span class="notification-dot"></span>
+<button class="logout-button">Wyloguj się</button>
+</div>
+</header>
+ 
+  <main class="main">
+<aside class="sidebar">
+<a href="kuchnia-zamowienia.html"><button class="menu-button">Zamówienia</button></a>
+<button class="menu-button active">Menu</button>
+</aside>
+ 
+    <section class="content">
+<div class="filters">
+<div class="tags">
+<span class="tag">Kurczak ✕</span>
+<span class="tag">Frytki ✕</span>
+<span class="tag">Fit ✕</span>
+</div>
+<label class="price-label">Cena</label>
+<input type="range" min="10" max="100" />
+<div class="filter-group">
+<p>Rodzaj dania</p>
+<label><input type="checkbox" checked /> Śniadania</label>
+<label><input type="checkbox" checked /> Obiad!</label>
+<label><input type="checkbox" checked /> Kolacja</label>
+</div>
+<div class="filter-group">
+<p>Wielkość</p>
+<label><input type="checkbox" checked /> Małe</label>
+<label><input type="checkbox" checked /> Średnie</label>
+<label><input type="checkbox" checked /> Grubas edition</label>
+</div>
+</div>
+ 
+      <div class="menu-panel">
+<div class="menu-bar">
+<input type="text" placeholder="Szukaj" class="search-input" />
+<button class="search-button">🔍</button>
+<button class="filter-button active">Nowe</button>
+<button class="filter-button">Cena rosnąco</button>
+<button class="filter-button">Cena malejąco</button>
+<button class="filter-button">Oceny</button>
+</div>
+ 
+        <div class="dishes">
+<!-- Dania -->
+<div class="dish">
+<img src="salatka.jpg" alt="Sałatka" />
+<p>Sałatka :)</p>
+<strong>145zł</strong>
+<label class="switch"><input type="checkbox"><span class="slider red"></span></label>
+</div>
+<div class="dish">
+<img src="pieczo.jpg" alt="Pieczona Mewa" />
+<p>Pieczona Mewa</p>
+<strong>26zł</strong>
+<label class="switch"><input type="checkbox" checked><span class="slider green"></span></label>
+</div>
+<div class="dish">
+<img src="frytki.jpg" alt="Frytki Watykańskie" />
+<p>Frytki Watykańskie</p>
+<strong>14zł</strong>
+<label class="switch"><input type="checkbox" checked><span class="slider green"></span></label>
+</div>
+<!-- Dodaj więcej dań analogicznie -->
+</div>
+</div>
+</section>
+</main>
+</body>
+</html>
