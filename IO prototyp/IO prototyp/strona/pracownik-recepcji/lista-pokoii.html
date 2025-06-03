@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Lista gości</title>
-<link rel="stylesheet" href="styles_lista-gosci.css" />
+<title>Lista pokoi</title>
+<link rel="stylesheet" href="styles_recepcja.css" />
 </head>
 <body>
 <div class="header">
@@ -14,21 +14,22 @@
  
   <div class="main">
 <div class="sidebar">
-<a href="lista-pokoii.html"><button>Lista pokoi</button></a>
-<button class="active">Lista gości</button>
+<button class="active">Lista pokoi</button>
+<a href="lista-gosci.html"><button>Lista gości</button></a>
 <a href="rezerwacje.html"><button>Rezerwacje</button></a>
 </div>
+ 
     <div class="content">
 <div class="filter-bar">
 <input type="text" placeholder="Szukaj" />
 <button class="filter-btn active">Nowe</button>
-<div class="sort-chip">Imię (alfabetycznie)</div>
-<div class="sort-chip">Telefon (+48)</div>
+<div class="sort-chip">Numer pokoju(rosnąco)</div>
+<div class="sort-chip">Maks. ilość gości(rosnąco)</div>
 </div>
  
-      <!-- Tu lista gości -->
- 
-    </div>
+      <!-- Lista pokoi tutaj -->
+</div>
+</div>
 </div>
 </body>
 </html>
