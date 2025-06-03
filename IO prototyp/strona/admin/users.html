@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Panel administracyjny – Hotel Atlantica</title>
+<link rel="stylesheet" href="styles_admin-lista-pokoii.css" />
+</head>
+<body>
+<header class="top-bar">
+<div class="logo">Hotel Atlantica</div>
+<div class="notifications">
+<span class="bell"></span>
+<span class="dot"></span>
+</div>
+<button class="logout">Wyloguj się</button>
+</header>
+ 
+  <main class="main-content">
+<aside class="sidebar wide">
+<a href="admin-lista-pokoii.html"><button class="sidebar-btn">Lista pokoi</button></a>
+<a href="users.html"><button class="sidebar-btn  active">Użytkownicy</button></a>
+<a href="admin-rezerwacje.html"><button class="sidebar-btn">Rezerwacje</button></a>
+<a href="platnosci.html"><button class="sidebar-btn">Płatności</button></a>
+<a href="raporty.html"><button class="sidebar-btn">Raporty</button></a>
+<a href="system.html"><button class="sidebar-btn">System</button></a>
+ 
+      <div class="action-buttons">
+<a href="users-add.html"><button class="action-btn add">Dodaj</button></a>
+<button class="action-btn delete">Usuń</button>
+<a href="users-update.html"><button class="action-btn update">Aktualizuj</button></a>
+</div>
+</aside>
+ 
+    <section class="content">
+<div class="filter-bar">
+<input type="text" placeholder="Szukaj" class="search-box" />
+<button class="filter-btn active">Nowe</button>
+<button class="filter-btn">Numer pokoju(rosnąco)</button>
+<button class="filter-btn">Maks. ilość gości(rosnąco)</button>
+</div>
+</section>
+</main>
+</body>
+</html>
