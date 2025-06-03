@@ -1,0 +1,157 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #e0e0e0;
+}
+ 
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 15px 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+ 
+.logo {
+  font-weight: bold;
+  font-size: 1.4em;
+}
+ 
+.notifications {
+  position: relative;
+}
+ 
+.bell {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url('bell-icon.svg') no-repeat center;
+  background-size: contain;
+}
+ 
+.dot {
+  position: absolute;
+  top: 0;
+  right: -5px;
+  width: 8px;
+  height: 8px;
+  background: red;
+  border-radius: 50%;
+}
+ 
+.logout {
+  background: #222;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+ 
+.main-content {
+  display: flex;
+}
+ 
+.sidebar {
+  width: 180px;
+  background: #f9f9f9;
+  padding: 20px;
+}
+ 
+.room-list-btn {
+  width: 100%;
+  background: #6e3d3d;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+ 
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  background: #d0d0d0;
+}
+ 
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+ 
+.search-box {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+ 
+.filter-btn {
+  background: #ddd;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 16px;
+  cursor: pointer;
+}
+ 
+.filter-btn.active {
+  background: black;
+  color: white;
+}
+ 
+.room-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+ 
+.room-table th,
+.room-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+ 
+.status {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  display: inline-block;
+}
+ 
+.status.cleaned {
+  background-color: #2ecc71;
+  color: white;
+}
+ 
+.status.dirty {
+  background-color: #e74c3c;
+  color: white;
+}
+ 
+.warning {
+  color: red;
+  font-weight: bold;
+}
+ 
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+ 
+.page {
+  padding: 6px 10px;
+  background: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+ 
+.page.active {
+  background: black;
+  color: white;
+}
