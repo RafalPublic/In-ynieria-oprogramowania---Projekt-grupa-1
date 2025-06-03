@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: ../pracownik-kuchnii/kuchnia-zamowienia.html"); // np. kuchnia/dashboard.php
                 break;
             case 'pracownik_recepcji':
-                header("Location: ../pracownik-recepcji/rezerwacje.html");
+                header("Location: ../pracownik-recepcji/rezerwacje.php");
                 break;
             case 'pracownik_sprzatajac':
                 header("Location: ../sprzatanie/sprzatanie.html");
