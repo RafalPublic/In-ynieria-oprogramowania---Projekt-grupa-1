@@ -1,7 +1,5 @@
 <?php
-// users.php – panel administracyjny z listą użytkowników, checkboxami, usuń/aktualizuj/dodaj
 
-// Połączenie z bazą danych
 $host = 'localhost';
 $db   = 'hotelsync';
 $user = 'root';
@@ -11,14 +9,12 @@ if ($conn->connect_error) {
     die("Błąd połączenia: " . $conn->connect_error);
 }
 
-// Komunikat zwrotny
+
 $message = '';
 
-// Obsługa POST: dodaj / usuń / aktualizuj / zapisz aktualizację
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $selected = isset($_POST['users']) ? $_POST['users'] : [];
 
-    // DODAJ użytkownika
     if (isset($_POST['action']) && $_POST['action'] === 'add') {
         $fname  = $conn->real_escape_string($_POST['new_imie']);
         $lname  = $conn->real_escape_string($_POST['new_nazwisko']);
@@ -38,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // USUŃ wybranych użytkowników
     if (isset($_POST['action']) && $_POST['action'] === 'delete') {
         if (!empty($selected)) {
             $ids = array_map('intval', $selected);
@@ -54,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // PRZYGOTUJ aktualizację
     if (isset($_POST['action']) && $_POST['action'] === 'update') {
         if (count($selected) > 1) {
             $message = "Można jeden jednocześnie aktualizować.";
@@ -67,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // ZAPIS aktualizacji
     if (isset($_POST['save_update'])) {
         $id      = intval($_POST['id_user']);
         $fname   = $conn->real_escape_string($_POST['imie']);
@@ -90,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// TRYB EDYCJI?
 $editMode = false;
 $editUser = null;
 if (isset($_GET['edit'])) {
@@ -107,7 +99,6 @@ if (isset($_GET['edit'])) {
     }
 }
 
-// Pobranie wszystkich użytkowników
 $sql = "SELECT id_user, imie, nazwisko, rola, email, telefon FROM user ORDER BY nazwisko ASC";
 $result = $conn->query($sql);
 ?>
@@ -120,7 +111,7 @@ $result = $conn->query($sql);
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Nagłówek -->
+
   <header class="top-bar">
     <div class="logo"><span class="icon">🏨</span>Hotel Atlantica</div>
     <div class="notifications">
@@ -130,7 +121,7 @@ $result = $conn->query($sql);
   </header>
 
   <div class="main-container">
-    <!-- Sidebar -->
+
     <aside class="sidebar">
       <a href="admin-lista-pokoii.php"><button class="sidebar-btn">Lista pokoi</button></a>
       <a href="users.php"><button class="sidebar-btn active">Użytkownicy</button></a>
@@ -148,13 +139,11 @@ $result = $conn->query($sql);
       </div>
     </aside>
 
-    <!-- Główna zawartość -->
     <div class="content-area">
       <?php if ($message): ?>
         <div class="message"><?= htmlspecialchars($message) ?></div>
       <?php endif; ?>
 
-      <!-- Formularz edycji użytkownika -->
       <?php if ($editMode && $editUser): ?>
         <div class="edit-form">
           <h2>Aktualizuj użytkownika ID: <?= $editUser['id_user'] ?></h2>
@@ -191,7 +180,7 @@ $result = $conn->query($sql);
         </div>
       <?php endif; ?>
 
-      <!-- Pasek filtrów -->
+
       <div class="filter-bar">
         <input type="text" placeholder="Szukaj" class="search-box" />
         <button class="filter-btn active">Nowi</button>
@@ -199,7 +188,7 @@ $result = $conn->query($sql);
         <button class="filter-btn">Email (rosnąco)</button>
       </div>
 
-      <!-- Tabela użytkowników -->
+
       <form method="post" action="users.php" id="usersForm">
         <div class="table-container">
           <table class="rooms-table">
@@ -243,7 +232,7 @@ $result = $conn->query($sql);
     </div>
   </div>
 
-  <!-- MODAL: Dodaj użytkownika -->
+
   <div class="modal-overlay" id="addModalOverlay">
     <div class="modal">
       <button class="close-btn" id="closeAddModal">&times;</button>
@@ -281,7 +270,7 @@ $result = $conn->query($sql);
   </div>
 
   <script>
-    // Select All / Deselect All checkboxów
+
     document.getElementById('selectAll').addEventListener('change', function() {
       var checked = this.checked;
       document.querySelectorAll('input[name="users[]"]').forEach(function(cb) {
@@ -289,7 +278,7 @@ $result = $conn->query($sql);
       });
     });
 
-    // Obsługa przycisków Usuń/Aktualizuj
+
     var actionForm = document.getElementById('actionForm');
     var usersForm  = document.getElementById('usersForm');
     var deleteBtn  = actionForm.querySelector('button[value="delete"]');
@@ -314,7 +303,6 @@ $result = $conn->query($sql);
       usersForm.submit();
     });
 
-    // Modal Dodaj użytkownika
     var addModalOverlay = document.getElementById('addModalOverlay');
     var openAddModal    = document.getElementById('openAddModal');
     var closeAddModal   = document.getElementById('closeAddModal');

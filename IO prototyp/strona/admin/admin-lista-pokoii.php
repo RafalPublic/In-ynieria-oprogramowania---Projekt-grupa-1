@@ -1,7 +1,4 @@
 <?php
-// admin-lista-pokoii.php – panel administracyjny z listą pokoi, checkboxami, usuń/aktualizuj/dodaj
-
-// Połączenie z bazą danych
 $host = 'localhost';
 $db   = 'hotelsync';
 $user = 'root';
@@ -10,16 +7,10 @@ $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
     die("Błąd połączenia: " . $conn->connect_error);
 }
-
-// Zmienna na komunikaty błędów/powiadomień
 $message = '';
 
-// Obsługa formularza: Usuwanie lub przygotowanie do aktualizacji
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Tablica zaznaczonych ID pokoi
     $selected = isset($_POST['rooms']) ? $_POST['rooms'] : [];
-
-    // Dodawanie pokoju
     if (isset($_POST['action']) && $_POST['action'] === 'add') {
         $number = $conn->real_escape_string($_POST['new_numer']);
         $type   = $conn->real_escape_string($_POST['new_typ']);
@@ -36,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Usuwanie
     if (isset($_POST['action']) && $_POST['action'] === 'delete') {
         if (!empty($selected)) {
             $ids = array_map('intval', $selected);
@@ -52,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Przygotowanie do aktualizacji
+
     if (isset($_POST['action']) && $_POST['action'] === 'update') {
         if (count($selected) > 1) {
             $message = "Można jeden jednocześnie aktualizować.";
@@ -65,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Zapis aktualizacji
     if (isset($_POST['save_update'])) {
         $id      = intval($_POST['id_pokoj']);
         $number  = $conn->real_escape_string($_POST['numer']);
@@ -85,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Sprawdzenie trybu edycji
+
 $editMode = false;
 $editRoom = null;
 if (isset($_GET['edit'])) {
@@ -101,7 +90,7 @@ if (isset($_GET['edit'])) {
     }
 }
 
-// Pobranie wszystkich pokoi
+
 $sql = "SELECT id_pokoj, numer, typ, status FROM pokoj ORDER BY numer ASC";
 $result = $conn->query($sql);
 ?>
@@ -114,7 +103,7 @@ $result = $conn->query($sql);
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Nagłówek -->
+
   <header class="top-bar">
     <div class="logo">Hotel Atlantica</div>
     <div class="center-icon">🔔<span class="dot"></span></div>
@@ -122,7 +111,7 @@ $result = $conn->query($sql);
   </header>
 
   <div class="main-content">
-    <!-- Sidebar -->
+
     <aside class="sidebar">
       <a href="admin-lista-pokoii.php"><button class="sidebar-btn active">Lista pokoi</button></a>
       <a href="users.php"><button class="sidebar-btn">Użytkownicy</button></a>
@@ -132,23 +121,22 @@ $result = $conn->query($sql);
       <a href="system.php"><button class="sidebar-btn">System</button></a>
 
       <div class="action-buttons">
-        <!-- Przyciski Usuń i Aktualizuj -->
+
         <form method="post" id="actionForm">
           <button type="submit" name="action" value="delete" class="action-btn delete">Usuń</button>
           <button type="submit" name="action" value="update" class="action-btn update">Aktualizuj</button>
         </form>
-        <!-- Przycisk Dodaj wyświetla modal -->
+
         <button class="action-btn add" id="openAddModal">Dodaj</button>
       </div>
     </aside>
 
-    <!-- Główna zawartość -->
+
     <div class="content-area">
       <?php if ($message): ?>
         <div class="message"><?= htmlspecialchars($message) ?></div>
       <?php endif; ?>
 
-      <!-- Tryb edycji pokoju -->
       <?php if ($editMode && $editRoom): ?>
         <div class="edit-form">
           <h2>Aktualizuj pokój ID: <?= $editRoom['id_pokoj'] ?></h2>
@@ -174,7 +162,7 @@ $result = $conn->query($sql);
         </div>
       <?php endif; ?>
 
-      <!-- Pasek filtrów -->
+
       <div class="filter-bar">
         <input type="text" placeholder="Szukaj" class="search-box" />
         <button class="filter-btn active">Nowe</button>
@@ -182,7 +170,6 @@ $result = $conn->query($sql);
         <button class="filter-btn">Maks. ilość gości (rosnąco)</button>
       </div>
 
-      <!-- Tabela pokoi wraz z checkboxami -->
       <form method="post" action="admin-lista-pokoii.php" id="roomsForm">
         <div class="table-container">
           <table class="rooms-table">
@@ -220,7 +207,7 @@ $result = $conn->query($sql);
     </div>
   </div>
 
-  <!-- MODAL: Dodaj pokój -->
+
   <div class="modal-overlay" id="addModalOverlay">
     <div class="modal">
       <button class="close-btn" id="closeAddModal">&times;</button>
@@ -249,7 +236,7 @@ $result = $conn->query($sql);
   </div>
 
   <script>
-    // Select All / Deselect All
+
     document.getElementById('selectAll').addEventListener('change', function() {
       var checked = this.checked;
       document.querySelectorAll('input[name="rooms[]"]').forEach(function(checkbox) {
@@ -257,7 +244,6 @@ $result = $conn->query($sql);
       });
     });
 
-    // Obsługa przycisków Usuń/Aktualizuj
     var actionForm = document.getElementById('actionForm');
     var roomsForm  = document.getElementById('roomsForm');
     var deleteBtn  = actionForm.querySelector('button[value="delete"]');
@@ -282,7 +268,6 @@ $result = $conn->query($sql);
       roomsForm.submit();
     });
 
-    // Modal Dodaj
     var addModalOverlay = document.getElementById('addModalOverlay');
     var openAddModal    = document.getElementById('openAddModal');
     var closeAddModal   = document.getElementById('closeAddModal');
@@ -297,7 +282,7 @@ $result = $conn->query($sql);
     cancelAddModal.addEventListener('click', function() {
       addModalOverlay.style.display = 'none';
     });
-    // Kliknięcie poza modalem też zamknie
+
     addModalOverlay.addEventListener('click', function(e) {
       if (e.target === addModalOverlay) {
         addModalOverlay.style.display = 'none';

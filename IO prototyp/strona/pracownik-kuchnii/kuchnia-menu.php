@@ -8,15 +8,15 @@ if ($conn->connect_error) {
     die("Błąd połączenia: " . $conn->connect_error);
 }
 
-// Aktualizacja dostępności
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggle_id'])) {
     $id = intval($_POST['toggle_id']);
     $newStatus = intval($_POST['new_status']);
     $conn->query("UPDATE menu SET dostepnosc = $newStatus WHERE id_danie = $id");
-    exit; // Zakończ żądanie Ajax
+    exit;
 }
 
-// Pobieranie dań
+
 $query = "SELECT * FROM menu ORDER BY id_danie DESC";
 $result = $conn->query($query);
 $dishes = $result->fetch_all(MYSQLI_ASSOC);

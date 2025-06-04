@@ -1,11 +1,10 @@
 <?php
 session_start();
 
-// Połączenie z bazą danych
 $host = 'localhost';
 $db = 'hotelsync';
 $user = 'root';
-$pass = ''; // lub Twoje hasło
+$pass = '';
 $conn = new mysqli($host, $user, $pass, $db);
 
 if ($conn->connect_error) {
@@ -14,24 +13,24 @@ if ($conn->connect_error) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $conn->real_escape_string($_POST['email']);
-    $password = $_POST['password']; // W prawdziwym systemie hasło powinno być haszowane!
+    $password = $_POST['password'];
 
     $query = "SELECT * FROM user WHERE email = '$email'";
     $result = $conn->query($query);
 
     if ($result && $result->num_rows === 1) {
         $user = $result->fetch_assoc();
-        // Tu możesz sprawdzać hasło, np. password_verify($password, $user['haslo'])
+
         if ($password === $user['haslo']) {
         $_SESSION['user_id'] = $user['id_user'];
         $_SESSION['rola'] = $user['rola'];
 
         switch ($user['rola']) {
             case 'gosc':
-                header("Location: ../gosc/rezerwacje.html"); // np. gosc/pokoje.php
+                header("Location: ../gosc/rezerwacje.html");
                 break;
             case 'pracownik_kuchnii':
-                header("Location: ../pracownik-kuchnii/kuchnia-zamowienia.html"); // np. kuchnia/dashboard.php
+                header("Location: ../pracownik-kuchnii/kuchnia-zamowienia.html");
                 break;
             case 'pracownik_recepcji':
                 header("Location: ../pracownik-recepcji/rezerwacje.php");

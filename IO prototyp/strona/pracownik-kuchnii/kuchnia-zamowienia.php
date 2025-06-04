@@ -8,7 +8,6 @@ if ($conn->connect_error) {
     die("Błąd połączenia: " . $conn->connect_error);
 }
 
-// Pobierz szczegóły zamówień
 $sql = "
 SELECT 
   z.id_zamowienie,

@@ -1,9 +1,9 @@
 <?php
-// Połączenie z bazą danych
+
 $host = 'localhost';
 $db = 'hotelsync';
 $user = 'root';
-$pass = ''; // Twoje hasło jeśli masz
+$pass = '';
 $conn = new mysqli($host, $user, $pass, $db);
 
 if ($conn->connect_error) {
@@ -16,14 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fname = $conn->real_escape_string($_POST['fname']);
     $lname = $conn->real_escape_string($_POST['lname']);
     $phone = $conn->real_escape_string($_POST['phone']);
-    $rola = 'gosc'; // domyślnie każdy nowy użytkownik to gość
+    $rola = 'gosc';
 
-    // Sprawdź, czy użytkownik już istnieje
     $check = $conn->query("SELECT id_user FROM user WHERE email = '$email'");
     if ($check && $check->num_rows > 0) {
         $error = "Użytkownik o tym adresie e-mail już istnieje.";
     } else {
-        // Wstaw nowego użytkownika
         $conn->query("INSERT INTO user (imie, nazwisko, rola, email, haslo, telefon) 
         VALUES ('$fname', '$lname', '$rola', '$email', '$password', '$phone')");
         header("Location: login.php");
@@ -83,7 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 </div>
 <div class="footer-columns">
-  <!-- kolumny -->
 </div>
 </footer>
 </body>

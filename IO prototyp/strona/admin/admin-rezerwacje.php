@@ -1,7 +1,5 @@
 <?php
-// admin-rezerwacje.php – panel administracyjny z listą rezerwacji, umożliwiający też status “anulowana”
 
-// Połączenie z bazą danych
 $host = 'localhost';
 $db   = 'hotelsync';
 $user = 'root';
@@ -11,10 +9,9 @@ if ($conn->connect_error) {
     die("Błąd połączenia: " . $conn->connect_error);
 }
 
-// Komunikat zwrotny
+
 $message = '';
 
-// Funkcja pomocnicza do wyliczenia domyślnego statusu
 function computeStatus($dateFrom, $dateTo) {
     $today = date('Y-m-d');
     if ($dateTo < $today) {
@@ -29,11 +26,10 @@ function computeStatus($dateFrom, $dateTo) {
     return '';
 }
 
-// Obsługa formularzy POST: dodaj / usuń / przygotuj do aktualizacji / zapisz aktualizację
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $selected = isset($_POST['reservations']) ? $_POST['reservations'] : [];
 
-    // DODAJ rezerwację
+
     if (isset($_POST['action']) && $_POST['action'] === 'add') {
         $userId   = intval($_POST['new_user']);
         $roomId   = intval($_POST['new_room']);
@@ -52,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // USUŃ zaznaczone rezerwacje
+
     if (isset($_POST['action']) && $_POST['action'] === 'delete') {
         if (!empty($selected)) {
             $ids = array_map('intval', $selected);
@@ -68,7 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // PRZYGOTUJ aktualizację
     if (isset($_POST['action']) && $_POST['action'] === 'update') {
         if (count($selected) > 1) {
             $message = "Można jeden jednocześnie aktualizować.";
@@ -81,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // ZAPIS aktualizacji
+
     if (isset($_POST['save_update'])) {
         $id        = intval($_POST['id_rezerwacja']);
         $userId    = intval($_POST['user']);
@@ -90,13 +85,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $dateTo    = $conn->real_escape_string($_POST['date_to']);
         $status    = $conn->real_escape_string($_POST['status']);
 
-        // Jeśli status “anulowana”, ustawiamy data_do = data_od (w praktyce można dodać kolumnę status w DB)
+
         if ($status === 'anulowana') {
             $updSql = "UPDATE rezerwacja 
                        SET id_user = $userId, id_pokoj = $roomId, data_od = '$dateFrom', data_do = '$dateTo'
                        WHERE id_rezerwacja = $id";
         } else {
-            // Dla pozostałych – aktualizujemy tylko daty i powrotnych danych 
+
             $updSql = "UPDATE rezerwacja 
                        SET id_user = $userId, id_pokoj = $roomId, data_od = '$dateFrom', data_do = '$dateTo' 
                        WHERE id_rezerwacja = $id";
@@ -111,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// TRYB EDYCJI?
+
 $editMode = false;
 $editRes  = null;
 if (isset($_GET['edit'])) {
@@ -135,13 +130,13 @@ if (isset($_GET['edit'])) {
     }
 }
 
-// Pobranie wszystkich użytkowników (dla dropdown)
+
 $usersList = $conn->query("SELECT id_user, imie, nazwisko FROM user ORDER BY nazwisko ASC");
 
-// Pobranie wszystkich pokoi (dla dropdown)
+
 $roomsList = $conn->query("SELECT id_pokoj, numer FROM pokoj ORDER BY numer ASC");
 
-// Pobranie wszystkich rezerwacji (tabela)
+
 $sql = "
   SELECT 
     r.id_rezerwacja,
@@ -166,7 +161,7 @@ $result = $conn->query($sql);
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Nagłówek -->
+
   <header class="top-bar">
     <div class="logo"><span class="icon">🏨</span>Hotel Atlantica</div>
     <div class="notifications">
@@ -176,7 +171,7 @@ $result = $conn->query($sql);
   </header>
 
   <div class="main-container">
-    <!-- Sidebar -->
+
     <aside class="sidebar">
       <a href="admin-lista-pokoii.php"><button class="sidebar-btn">Lista pokoi</button></a>
       <a href="users.php"><button class="sidebar-btn">Użytkownicy</button></a>
@@ -194,13 +189,13 @@ $result = $conn->query($sql);
       </div>
     </aside>
 
-    <!-- Główna zawartość -->
+
     <div class="content-area">
       <?php if ($message): ?>
         <div class="message"><?= htmlspecialchars($message) ?></div>
       <?php endif; ?>
 
-      <!-- Formularz edycji rezerwacji -->
+
       <?php if ($editMode && $editRes): ?>
         <?php
           $computedStatus = computeStatus($editRes['data_od'], $editRes['data_do']);
@@ -257,7 +252,7 @@ $result = $conn->query($sql);
         </div>
       <?php endif; ?>
 
-      <!-- Pasek filtrów -->
+
       <div class="filter-bar">
         <input type="text" placeholder="Szukaj" class="search-box" />
         <button class="filter-btn active">Wszystkie</button>
@@ -265,7 +260,7 @@ $result = $conn->query($sql);
         <button class="filter-btn">Data do (rosnąco)</button>
       </div>
 
-      <!-- Tabela rezerwacji -->
+
       <form method="post" action="admin-rezerwacje.php" id="reservationsForm">
         <div class="table-container">
           <table class="rooms-table">
@@ -312,7 +307,7 @@ $result = $conn->query($sql);
     </div>
   </div>
 
-  <!-- MODAL: Dodaj rezerwację -->
+
   <div class="modal-overlay" id="addModalOverlay">
     <div class="modal">
       <button class="close-btn" id="closeAddModal">&times;</button>
@@ -355,7 +350,7 @@ $result = $conn->query($sql);
   </div>
 
   <script>
-    // Zaznacz/odznacz wszystkie checkboxy
+
     document.getElementById('selectAll').addEventListener('change', function() {
       var checked = this.checked;
       document.querySelectorAll('input[name="reservations[]"]').forEach(function(cb) {
@@ -363,7 +358,7 @@ $result = $conn->query($sql);
       });
     });
 
-    // Obsługa przycisków Usuń i Aktualizuj
+
     var actionForm      = document.getElementById('actionForm');
     var reservationsForm = document.getElementById('reservationsForm');
     var deleteBtn       = actionForm.querySelector('button[value="delete"]');
@@ -388,7 +383,7 @@ $result = $conn->query($sql);
       reservationsForm.submit();
     });
 
-    // Modal Dodawania rezerwacji
+
     var addModalOverlay = document.getElementById('addModalOverlay');
     var openAddModal    = document.getElementById('openAddModal');
     var closeAddModal   = document.getElementById('closeAddModal');
