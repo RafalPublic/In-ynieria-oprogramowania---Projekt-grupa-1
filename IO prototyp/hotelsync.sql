@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 23 Kwi 2025, 10:58
+-- Czas generowania: 04 Cze 2025, 11:07
 -- Wersja serwera: 10.4.22-MariaDB
 -- Wersja PHP: 8.1.1
 
@@ -34,6 +34,47 @@ CREATE TABLE `menu` (
   `dostepnosc` tinyint(1) NOT NULL
 ) ;
 
+--
+-- Zrzut danych tabeli `menu`
+--
+
+INSERT INTO `menu` (`id_danie`, `nazwa`, `cena`, `dostepnosc`) VALUES
+(1, 'Zupa pomidorowa', '12.50', 0),
+(2, 'Schabowy z ziemniakami', '25.00', 0),
+(3, 'Sałatka grecka', '18.00', 0),
+(4, 'Pizza Margherita', '30.00', 0),
+(5, 'Pieczona Mewa', '21.37', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `platnosci`
+--
+
+CREATE TABLE `platnosci` (
+  `id_platnosc` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_rezerwacja` int(11) DEFAULT NULL,
+  `id_zamowienie` int(11) DEFAULT NULL,
+  `kwota` decimal(10,2) NOT NULL,
+  `data_platnosci` datetime NOT NULL,
+  `status` enum('zaksięgowane','oczekuje na płatność') NOT NULL,
+  `metoda_platnosci` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Zrzut danych tabeli `platnosci`
+--
+
+INSERT INTO `platnosci` (`id_platnosc`, `id_user`, `id_rezerwacja`, `id_zamowienie`, `kwota`, `data_platnosci`, `status`, `metoda_platnosci`) VALUES
+(1, 1, 1, NULL, '500.00', '2025-06-01 12:30:00', 'zaksięgowane', 'karta kredytowa'),
+(2, 1, 2, NULL, '750.00', '2025-06-09 14:15:00', 'oczekuje na płatność', 'przelew bankowy'),
+(3, 1, NULL, 1, '12.50', '2025-06-01 13:05:00', 'zaksięgowane', 'gotówka'),
+(4, 1, NULL, 2, '25.00', '2025-06-02 18:35:00', 'zaksięgowane', 'karta debetowa'),
+(5, 1, NULL, 3, '18.00', '2025-06-11 12:20:00', 'oczekuje na płatność', 'karta kredytowa'),
+(6, 1, NULL, 4, '30.00', '2025-06-19 23:10:00', 'zaksięgowane', 'aplikacja mobilna'),
+(7, 6, NULL, NULL, '200.00', '2025-06-03 09:45:00', 'zaksięgowane', 'przelew bankowy');
+
 -- --------------------------------------------------------
 
 --
@@ -46,6 +87,18 @@ CREATE TABLE `pokoj` (
   `typ` varchar(30) NOT NULL,
   `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Zrzut danych tabeli `pokoj`
+--
+
+INSERT INTO `pokoj` (`id_pokoj`, `numer`, `typ`, `status`) VALUES
+(1, '101', 'dungeon', 'wolny'),
+(2, '102', 'lapis lazuli', 'zajęty'),
+(3, '103', 'ocean', 'wolny'),
+(4, '104', 'premium', 'zajęty'),
+(5, '105', 'standard', 'wolny'),
+(6, '106', 'deluxe', 'wolny');
 
 -- --------------------------------------------------------
 
@@ -61,6 +114,14 @@ CREATE TABLE `rezerwacja` (
   `data_do` date NOT NULL
 ) ;
 
+--
+-- Zrzut danych tabeli `rezerwacja`
+--
+
+INSERT INTO `rezerwacja` (`id_rezerwacja`, `id_pokoj`, `id_user`, `data_od`, `data_do`) VALUES
+(1, 2, 1, '2025-06-01', '2025-06-05'),
+(2, 3, 1, '2025-06-10', '2025-06-15');
+
 -- --------------------------------------------------------
 
 --
@@ -75,6 +136,14 @@ CREATE TABLE `sprzatanie` (
   `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Zrzut danych tabeli `sprzatanie`
+--
+
+INSERT INTO `sprzatanie` (`id_sprzatanie`, `id_pokoj`, `id_pracownik`, `data`, `status`) VALUES
+(1, 1, 4, '2025-05-31 10:00:00', 'wykonane'),
+(2, 3, 4, '2025-06-09 16:00:00', 'zaplanowane');
+
 -- --------------------------------------------------------
 
 --
@@ -86,8 +155,22 @@ CREATE TABLE `user` (
   `imie` varchar(50) NOT NULL,
   `nazwisko` varchar(50) NOT NULL,
   `rola` varchar(20) NOT NULL,
-  `email` varchar(100) NOT NULL
+  `email` varchar(100) NOT NULL,
+  `haslo` varchar(255) NOT NULL,
+  `telefon` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Zrzut danych tabeli `user`
+--
+
+INSERT INTO `user` (`id_user`, `imie`, `nazwisko`, `rola`, `email`, `haslo`, `telefon`) VALUES
+(1, 'Jan', 'Kowalski', 'gosc', 'jan.kowalski@example.com', 'gosc123', '+48501111222'),
+(2, 'Anna', 'Nowak', 'pracownik_kuchnii', 'anna.nowak@example.com', 'kuchnia123', '+48502222333'),
+(3, 'Tomasz', 'Wiśniewski', 'pracownik_recepcji', 'tomasz.wisniewski@example.com', 'recepcja123', '+48503333444'),
+(4, 'Katarzyna', 'Mazur', 'pracownik_sprzatajac', 'katarzyna.mazur@example.com', 'sprzatanie123', '+48504444555'),
+(5, 'Admin', 'Hotelu', 'admin', 'admin@example.com', 'admin123', '+48505555666'),
+(6, 'Marek', 'Marucha', 'gosc', 'marekmarucha@duzamaczuga.pl', '123', '');
 
 -- --------------------------------------------------------
 
@@ -104,6 +187,16 @@ CREATE TABLE `zamowienie` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Zrzut danych tabeli `zamowienie`
+--
+
+INSERT INTO `zamowienie` (`id_zamowienie`, `id_rezerwacji`, `id_danie`, `data_zamowienia`, `status`) VALUES
+(1, 1, 1, '2025-06-01 13:00:00', 'zrealizowane'),
+(2, 1, 2, '2025-06-02 18:30:00', 'zrealizowane'),
+(3, 2, 3, '2025-06-11 12:15:00', 'oczekuje'),
+(4, 1, 4, '2025-06-19 23:06:15', 'w dostawie');
+
+--
 -- Indeksy dla zrzutów tabel
 --
 
@@ -112,6 +205,15 @@ CREATE TABLE `zamowienie` (
 --
 ALTER TABLE `menu`
   ADD PRIMARY KEY (`id_danie`);
+
+--
+-- Indeksy dla tabeli `platnosci`
+--
+ALTER TABLE `platnosci`
+  ADD PRIMARY KEY (`id_platnosc`),
+  ADD KEY `id_user` (`id_user`),
+  ADD KEY `id_rezerwacja` (`id_rezerwacja`),
+  ADD KEY `id_zamowienie` (`id_zamowienie`);
 
 --
 -- Indeksy dla tabeli `pokoj`
@@ -161,10 +263,16 @@ ALTER TABLE `menu`
   MODIFY `id_danie` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT dla tabeli `platnosci`
+--
+ALTER TABLE `platnosci`
+  MODIFY `id_platnosc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT dla tabeli `pokoj`
 --
 ALTER TABLE `pokoj`
-  MODIFY `id_pokoj` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pokoj` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT dla tabeli `rezerwacja`
@@ -176,23 +284,31 @@ ALTER TABLE `rezerwacja`
 -- AUTO_INCREMENT dla tabeli `sprzatanie`
 --
 ALTER TABLE `sprzatanie`
-  MODIFY `id_sprzatanie` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sprzatanie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT dla tabeli `zamowienie`
 --
 ALTER TABLE `zamowienie`
-  MODIFY `id_zamowienie` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_zamowienie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Ograniczenia dla zrzutów tabel
 --
+
+--
+-- Ograniczenia dla tabeli `platnosci`
+--
+ALTER TABLE `platnosci`
+  ADD CONSTRAINT `platnosci_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`),
+  ADD CONSTRAINT `platnosci_ibfk_2` FOREIGN KEY (`id_rezerwacja`) REFERENCES `rezerwacja` (`id_rezerwacja`),
+  ADD CONSTRAINT `platnosci_ibfk_3` FOREIGN KEY (`id_zamowienie`) REFERENCES `zamowienie` (`id_zamowienie`);
 
 --
 -- Ograniczenia dla tabeli `rezerwacja`
