@@ -10,6 +10,9 @@ body {
   color: #000;
 }
 
+/* ===========================
+   GÓRNY PASEK (HEADER)
+   =========================== */
 header.top-bar {
   background-color: #fff;
   height: 56px;
@@ -70,13 +73,18 @@ header.top-bar .logout-btn {
   font-size: 0.9rem;
 }
 
+/* ===========================
+   UKŁAD GŁÓWNY: PANEL BOCZNY + TREŚĆ
+   =========================== */
 .main-container,
 .main-content {
   display: flex;
-  height: calc(100vh - 56px);
+  height: calc(100vh - 56px); /* odejmujemy wysokość headera */
 }
 
-
+/* ===========================
+   PANEL BOCZNY (SIDEBAR)
+   =========================== */
 .sidebar {
   width: 200px;
   background-color: #222;
@@ -114,7 +122,7 @@ header.top-bar .logout-btn {
   background-color: #b04e48;
 }
 
-
+/* Przyciski akcji w dolnej części sidebar */
 .sidebar .action-buttons {
   margin-top: auto;
   margin-bottom: 24px;
@@ -133,21 +141,23 @@ header.top-bar .logout-btn {
 }
 
 .sidebar .action-btn.add {
-  background-color: #2ecc71;
+  background-color: #2ecc71; /* zielony */
   color: #fff;
 }
 
 .sidebar .action-btn.delete {
-  background-color: #e74c3c;
+  background-color: #e74c3c; /* czerwony */
   color: #fff;
 }
 
 .sidebar .action-btn.update {
-  background-color: #555;
+  background-color: #555; /* ciemniejszy szary */
   color: #fff;
 }
 
-
+/* ===========================
+   GŁÓWNA ZAWARTOŚĆ (CONTENT-AREA / CONTENT)
+   =========================== */
 .content,
 .content-area {
   flex: 1;
@@ -166,7 +176,9 @@ header.top-bar .logout-btn {
   color: #333;
 }
 
-
+/* ===========================
+   PASEK FILTRÓW (FILTER-BAR / FILTER-PANEL)
+   =========================== */
 .filter-bar,
 .filter-panel {
   display: flex;
@@ -229,7 +241,9 @@ header.top-bar .logout-btn {
   background-color: #b04e48;
 }
 
-
+/* ===========================
+   FORMULARZE / KONTENERY (FORM-CONTAINER / FORM-BOX / EDIT-FORM)
+   =========================== */
 .form-container,
 .form-box,
 .edit-form {
@@ -289,7 +303,9 @@ form button[type="submit"] {
   font-size: 0.9rem;
 }
 
-
+/* ===========================
+   TABELA OGÓLNA (TABLE, TH, TD)
+   =========================== */
 .table-container {
   margin: 0 auto;
   width: calc(100% - 40px);
@@ -327,7 +343,9 @@ tr:last-child td {
   border-bottom: none;
 }
 
-
+/* ===========================
+   TABELA SPECJALNA – POKOJE (ROOMS-TABLE)
+   =========================== */
 .rooms-table th:first-child,
 .rooms-table td:first-child {
   text-align: center;
@@ -338,7 +356,9 @@ tr:last-child td {
   margin-top: 16px;
 }
 
-
+/* ===========================
+   TABELA SPECJALNA – PŁATNOŚCI (PREVIEW-TABLE)
+   =========================== */
 .preview-table {
   width: 100%;
   border-collapse: collapse;
@@ -366,7 +386,9 @@ tr:last-child td {
   background-color: #f9f9f9;
 }
 
-
+/* ===========================
+   PRZYCISKI (BUTTONS)
+   =========================== */
 .btn,
 button,
 .generate-button {
@@ -387,7 +409,9 @@ button,
   background-color: #922f2a;
 }
 
-
+/* ===========================
+   OKNO MODALNE (MODAL: DODAJ POKÓJ)
+   =========================== */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0;
@@ -448,12 +472,12 @@ button,
 }
 
 .modal .btn-group .save-btn {
-  background-color: #2ecc71;
+  background-color: #2ecc71; /* zielony */
   color: #fff;
 }
 
 .modal .btn-group .cancel-btn {
-  background-color: #e74c3c;
+  background-color: #e74c3c; /* czerwony */
   color: #fff;
 }
 

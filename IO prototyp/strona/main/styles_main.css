@@ -1,4 +1,4 @@
-
+/* Reset i podstawowe style */
 * {
     margin: 0;
     padding: 0;
@@ -17,7 +17,7 @@ body {
     margin: 0 auto;
 }
 
-
+/* Nagłówek */
 .header {
     display: flex;
     justify-content: space-between;
@@ -107,7 +107,7 @@ body {
     background: #E5E5E5;
 }
 
-
+/* Sekcja hero */
 .hero-section {
     width: 100%;
     padding: 160px 24px;
@@ -140,7 +140,7 @@ body {
     text-align: center;
 }
 
-
+/* Zdjęcie hotelu */
 .hotel-image {
     width: 100%;
     background: #E3E3E3;
@@ -153,7 +153,7 @@ body {
     display: block;
 }
 
-
+/* Sekcja kadry */
 .staff-section {
     width: 100%;
     padding: 64px;
@@ -213,7 +213,7 @@ body {
     line-height: 22.4px;
 }
 
-
+/* Stopka */
 .footer {
     width: 100%;
     padding: 32px;
@@ -268,7 +268,7 @@ body {
     display: block;
 }
 
-
+/* Responsywność */
 @media (max-width: 768px) {
     .header {
         flex-direction: column;
@@ -301,7 +301,7 @@ body {
     .social-icons {
         justify-content: center;
     }
-
+ /* Style specyficzne dla strony logowania */
 .login-container {
     width: 100%;
     max-width: 1200px;
@@ -405,7 +405,7 @@ body {
     display: block;
 }
 
-
+/* Responsywność */
 @media (max-width: 768px) {
     .login-title {
         font-size: 28px;

@@ -1,4 +1,7 @@
 <?php
+// platnosci.php – wyświetla dane z tabeli „platnosci” w formie tabeli
+
+// Połączenie z bazą danych
 $host = 'localhost';
 $db   = 'hotelsync';
 $user = 'root';
@@ -8,6 +11,7 @@ if ($conn->connect_error) {
     die("Błąd połączenia: " . $conn->connect_error);
 }
 
+// Pobieramy płatności wraz z imieniem i nazwiskiem użytkownika
 $sql = "
   SELECT 
     p.id_platnosc,
@@ -36,14 +40,15 @@ $result = $conn->query($sql);
 <body>
   <header class="top-bar">
     <div class="logo">
-      <span class="icon">⦻</span>
       <span class="name">Hotel Atlantica</span>
       <link rel="stylesheet" href="styles.css" />
     </div>
     <div class="icons">
       <span class="notif-icon">🔔<span class="notif-dot"></span></span>
       <form method="post" action="logout.php" style="display:inline;">
-        <button type="submit" class="logout">Wyloguj się</button>
+        <a href="../main/main.html" class="logout-link">
+        <button class="logout">Wyloguj się</button>
+        </a>
       </form>
     </div>
   </header>
@@ -59,7 +64,7 @@ $result = $conn->query($sql);
     </nav>
 
     <div class="content-wrapper">
-
+      <!-- Pasek filtrów / wyszukiwania -->
       <div class="filter-bar">
         <input type="text" class="search-input" placeholder="Szukaj..." />
         <button class="search-button">🔍</button>
@@ -69,9 +74,9 @@ $result = $conn->query($sql);
         <button class="menu-toggle">☰</button>
       </div>
 
-
+      <!-- Obszar treści z szarym tłem, w którym znajduje się nagłówek i tabela -->
       <div class="content-area">
-
+        <!-- Nagłówek z tytułem i przyciskiem -->
         <div class="content-header">
           <h2>Lista płatności</h2>
           <a href="wyciag.php">
@@ -79,7 +84,7 @@ $result = $conn->query($sql);
           </a>
         </div>
 
-
+        <!-- Tabela płatności -->
         <table>
           <thead>
             <tr>

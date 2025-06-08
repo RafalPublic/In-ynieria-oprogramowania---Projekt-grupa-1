@@ -1,6 +1,6 @@
 <?php
 require('fpdf.php');
-
+// Połączenie z bazą danych
 $host = 'localhost';
 $db   = 'hotelsync';
 $user = 'root';
@@ -10,13 +10,13 @@ if ($conn->connect_error) {
     die("Błąd połączenia: " . $conn->connect_error);
 }
 
-
+// Pobranie parametrów filtrów z GET
 $date_from   = isset($_GET['date_from'])   ? $_GET['date_from']   : '';
 $date_to     = isset($_GET['date_to'])     ? $_GET['date_to']     : '';
 $user_id     = isset($_GET['user_id'])     ? intval($_GET['user_id']) : '';
 $report_type = isset($_GET['report_type']) ? $_GET['report_type'] : 'all';
 
-
+// Funkcja budująca zapytanie SQL z uwzględnieniem filtrów
 function fetchPayments($conn, $date_from, $date_to, $user_id, $report_type) {
     $where = [];
 
@@ -60,27 +60,27 @@ function fetchPayments($conn, $date_from, $date_to, $user_id, $report_type) {
     return $conn->query($sql);
 }
 
-
+// Pobieramy dane płatności (z filtrami)
 $payments = fetchPayments($conn, $date_from, $date_to, $user_id, $report_type);
 
-
+// Jeżeli parametr ?download=1 istnieje, generujemy i zwracamy PDF na podstawie tych samych filtrów
 if (isset($_GET['download']) && $_GET['download'] == '1') {
-
+    // Używamy tej samej funkcji, by pobrać filtrowane wyniki
     $result = $payments;
 
-
+    // Inicjalizacja PDF
     $pdf = new FPDF('P','mm','A4');
     $pdf->AddPage();
     $pdf->SetAutoPageBreak(true, 15);
 
-
+    // Tytuł dokumentu
     $pdf->SetFont('Arial','B',16);
     $pdf->Cell(0,10, 'Wyciąg płatności – Hotel Atlantica', 0,1,'C');
     $pdf->Ln(4);
 
-
+    // Ustawienia czcionki do tabeli
     $pdf->SetFont('Arial','B',10);
-
+    // Nagłówki kolumn i ich szerokości
     $headers = [
         'ID'            => 10,
         'Użytkownik'    => 40,
@@ -91,15 +91,16 @@ if (isset($_GET['download']) && $_GET['download'] == '1') {
         'Status'        => 25,
         'Metoda'        => 20
     ];
-
+    // Rysujemy nagłówek tabeli
     foreach ($headers as $col => $w) {
         $pdf->Cell($w, 7, iconv('UTF-8','CP1250',$col), 1, 0, 'C');
     }
     $pdf->Ln();
 
-
+    // Zmieniamy czcionkę na zwykłą do wierszy
     $pdf->SetFont('Arial','',10);
 
+    // Pętla po wynikach zapytania
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $userName = $row['imie'] . ' ' . $row['nazwisko'];
@@ -123,7 +124,7 @@ if (isset($_GET['download']) && $_GET['download'] == '1') {
             iconv('UTF-8','CP1250','Brak danych o płatnościach.'), 1, 1, 'C');
     }
 
-
+    // Zwracamy plik PDF do pobrania
     $pdf->Output('D', 'wyciag_platnosci.pdf');
     exit;
 }
@@ -147,10 +148,13 @@ if (isset($_GET['download']) && $_GET['download'] == '1') {
     <div class="icons">
       <span class="notif-icon">🔔<span class="notif-dot"></span></span>
     </div>
+    <a href="../main/main.html" class="logout-link">
+   <button class="logout">Wyloguj się</button>
+   </a>
   </header>
 
   <div class="main-content">
-
+    <!-- Boczny panel nawigacyjny -->
     <nav class="sidebar">
       <a href="admin-lista-pokoii.php"><button>Lista pokoi</button></a>
       <a href="users.php"><button>Użytkownicy</button></a>
@@ -160,9 +164,9 @@ if (isset($_GET['download']) && $_GET['download'] == '1') {
       <a href="system.php"><button>System</button></a>
     </nav>
 
-
+    <!-- Główny obszar: Lewy panel filtrów, Prawy panel podglądu -->
     <div style="display: flex; flex: 1;">
-
+      <!-- Lewy panel filtrów -->
       <form class="filter-panel" method="get" action="wyciag.php">
         <label for="date_from">Od</label>
         <input type="date" id="date_from" name="date_from" value="<?= htmlspecialchars($date_from) ?>">
@@ -193,13 +197,15 @@ if (isset($_GET['download']) && $_GET['download'] == '1') {
           <option value="paid" <?= $report_type === 'paid' ? 'selected' : '' ?>>Zapłacone</option>
         </select>
 
+        <!-- Przycisk aktualizujący podgląd -->
         <div class="button-group">
           <button type="submit" class="btn generate">Aktualizuj podgląd</button>
         </div>
 
+        <!-- Przycisk generujący i pobierający PDF z bieżącymi filtrami -->
         <div class="button-group">
           <?php
-
+          // Budujemy query string z obecnymi filtrami
           $queryParams = [];
           if ($date_from)   $queryParams[] = "date_from=" . urlencode($date_from);
           if ($date_to)     $queryParams[] = "date_to=" . urlencode($date_to);
@@ -212,7 +218,7 @@ if (isset($_GET['download']) && $_GET['download'] == '1') {
         </div>
       </form>
 
-
+      <!-- Prawy panel – Podgląd tabeli płatności -->
       <div class="preview-panel">
         <h2>Podgląd wyciągu</h2>
         <table class="preview-table">

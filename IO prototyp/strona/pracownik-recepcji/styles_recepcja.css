@@ -1,11 +1,13 @@
+/* === Połączony plik CSS === */
 
+/* Reset lokalny */
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
   background-color: #e0e0e0;
 }
 
-
+/* Sidebar */
 .sidebar {
   width: 150px;
   background: white;
@@ -29,7 +31,7 @@ body {
   background-color: #7a4f4f;
 }
 
-
+/* Header */
 .header {
   display: flex;
   justify-content: space-between;
@@ -53,19 +55,19 @@ body {
   cursor: pointer;
 }
 
-
+/* Main container */
 .main {
   display: flex;
 }
 
-
+/* Content area */
 .content {
   flex-grow: 1;
   padding: 2rem;
   background-color: #d3d3d3;
 }
 
-
+/* Filter bar */
 .filter-bar {
   display: flex;
   align-items: center;
@@ -101,7 +103,7 @@ body {
   cursor: pointer;
 }
 
-
+/* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
